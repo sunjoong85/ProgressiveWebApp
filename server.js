@@ -25,7 +25,9 @@ const options = {
 }
 
 //http.createServer(app.callback()).listen(3001);
-const h1server = http.createServer().listen(3001);
+const h1server = http.createServer().listen(3001, function() {
+  console.log("Welcome! Port : 3001");
+});
 /*
 const h2server = http2.createSecureServer(options);
 h2server.listen(3000);
