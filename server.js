@@ -9,8 +9,8 @@ const path = require('path');
 // const mime = require('mime');
 
 const options = {
-    key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
-    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
+  //  key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
+//    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
 
     allowHTTP1 : true,
 
@@ -27,7 +27,7 @@ const options = {
 //http.createServer(app.callback()).listen(3001);
 const h1server = http.createServer().listen(3001);
 
-const h2server = http2.createSecureServer(options);
+//const h2server = http2.createSecureServer(options);
 //h2server.listen(3000);
 
 // The files are pushed to stream here
