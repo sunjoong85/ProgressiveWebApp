@@ -26,9 +26,9 @@ const options = {
 
 //http.createServer(app.callback()).listen(3001);
 const h1server = http.createServer().listen(3001);
-
-//const h2server = http2.createSecureServer(options);
-//h2server.listen(3000);
+/*
+const h2server = http2.createSecureServer(options);
+h2server.listen(3000);
 
 // The files are pushed to stream here
 function push(stream, reqPath) {
@@ -135,3 +135,4 @@ function getFile(reqPath) {
     }
 
 }
+*/
