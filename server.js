@@ -25,7 +25,10 @@ const options = {
 }
 
 //http.createServer(app.callback()).listen(3001);
-const h1server = http.createServer().listen(3001, function() {
+const h1server = http.createServer(function(req,res){
+  res.write("hello");
+  res.end();
+}).listen(3001, function() {
   console.log("Welcome! Port : 3001");
 });
 /*
