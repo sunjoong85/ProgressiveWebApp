@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Progressive Web App Demo</title>
+</head>
+
+<body>
+  Hello World!
+
+</body>
+
+</html>
+
+<script>
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+              //root url 에 대해서만 처리 하겠다는 의미
+        navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
+                  // Registration was successful
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+                  // registration failed :(
+              console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
+</script>
