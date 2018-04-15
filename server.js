@@ -28,8 +28,8 @@ const options = {
 const h1server = http.createServer(function(req,res){
   res.write("hello");
   res.end();
-}).listen(80, function() {
-  console.log("Welcome! Port : 3001");
+}).listen(3000, function() {
+  console.log("Welcome! Port : 3000");
 });
 /*
 const h2server = http2.createSecureServer(options);
