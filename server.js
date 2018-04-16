@@ -11,8 +11,9 @@ const path = require('path');
 const options = {
 //    key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
 //    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
-      key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
-      cert: fs.readFileSync(path.join(__dirname, '/certs/cert.pem')),
+    key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
+    cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
+    ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
 
     allowHTTP1 : true,
 
@@ -25,75 +26,6 @@ const options = {
         maxHeaderListSize : 65535000
     },*/
 }
-
-//http.createServer(app.callback()).listen(3001);
-const h1server = http.createServer(function(req,res){
-  // console.log(req.headers);
-  console.log("###" + req.url);
-  var file;
-
-  if(req.url == "/" || req.url == "index.html") {
-    file = http1getFile('/app/index.html')
-  } else {
-    file = http1getFile(req.url);
-  }
-
-  if(file) {
-      res.writeHead(200, file.headers);
-      res.end(file.data);
-  } else {
-      res.writeHead(404);
-      res.end("Server Error");
-  }
-}).listen(3000, function() {
-  console.log("Welcome! Port : 3000");
-});
-
-function http1getFile(reqPath) {
-  try{
-      const filePath = path.join(__dirname,  reqPath);
-//        console.log("try open file - " + filePath);
-      const data = fs.readFileSync(filePath);
-      const contentType = mime.getType(filePath);
-      const stat = fs.statSync(filePath);
-      return {
-          data : data,
-          path : reqPath,
-          headers : {
-              'content-type' : contentType,
-              'content-length' : stat.size, //optional
-              'last-modified' : stat.mtime.toUTCString(), //optional
-          }
-      }
-  } catch(e) {
-      console.log("error. cannot read file");
-      return null;
-  }
-
-}
-function getFile(reqPath) {
-    try{
-        const filePath = path.join(__dirname,  reqPath);
-//        console.log("try open file - " + filePath);
-        const fd = fs.openSync(filePath, fs.constants.O_RDONLY);  // fs.constants.O_RDONLY == 0, 'r' 이랑 같은 의미니?
-        const contentType = mime.getType(filePath);
-        const stat = fs.statSync(filePath);
-        return {
-            fd : fd,
-            path : reqPath,
-            headers : {
-                'content-type' : contentType,
-                'content-length' : stat.size, //optional
-                'last-modified' : stat.mtime.toUTCString(), //optional
-            }
-        }
-    } catch(e) {
-        console.log("error. cannot read file");
-        return null;
-    }
-
-}
-
 
 const h2server = http2.createSecureServer(options);
 h2server.listen(3001);
