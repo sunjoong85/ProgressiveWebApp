@@ -11,8 +11,8 @@ const path = require('path');
 const options = {
 //    key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
 //    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
-      key : fs.readFileSync(path.join(__dirname, '/certs/flyingmom.kr/privkey.pem')),
-      cert: fs.readFileSync(path.join(__dirname, '/certs/flyingmom.kr/cert.pem')),
+      key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
+      cert: fs.readFileSync(path.join(__dirname, '/certs/cert.pem')),
 
     allowHTTP1 : true,
 
