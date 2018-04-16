@@ -9,8 +9,10 @@ const path = require('path');
 // const mime = require('mime');
 
 const options = {
-  //  key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
+//    key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
 //    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
+      key : fs.readFileSync(path.join(__dirname, '/certs/flyingmom.kr/privkey.pem')),
+      cert: fs.readFileSync(path.join(__dirname, '/certs/flyingmom.kr/cert.pem')),
 
     allowHTTP1 : true,
 
@@ -47,53 +49,7 @@ const h1server = http.createServer(function(req,res){
   console.log("Welcome! Port : 3000");
 });
 
-//https://blogs.iyogeshjoshi.com/get-a-free-ssl-tls-certificate-for-your-website-and-setting-up-with-nodejs-server-b5189ac8e007
-
-/*
-http.get('/flyingmom./.well-known/acme-challenge', (req, res) => {
-  console.log("here! acme challenge")
-})*/
-
-/*
-h1server.on('stream', (stream, headers) => {
-    const reqPath = headers[':path'] === '/' ? 'index.html' : headers[':path'];
-    const file = getFile(reqPath);
-
-    stream.session.state;
-    if(reqPath === 'index.html') {
-//        console.log("index.html request");
-        push(stream, '/app/lib/jquery.js');
-        push(stream, '/app/lib/lodash.js');
-        push(stream, '/app/lib/bootstrap.min.css');
-        push(stream, '/app/lib/bootstrap.min.js');
-    } else {
-        console.log("another request");
-    }
-
-    if(!file) {
-        stream.respond({':status' : 404});
-        stream.end();
-        return;
-    }
-    stream.respondWithFD(file.fd, file.headers);
-
-    stream.once('close', () => {
-        console.log("#stream close fd : " + file.fd + " " + file.path);
-        fs.closeSync(file.fd)
-    });
-
-    stream.once('error', () => {
-        console.log('error 1');
-    })
-    stream.once('frameError', () => {
-        console.log('f error 1');
-    })
-   // stream.end();
-});
-*/
-
 function http1getFile(reqPath) {
-
   try{
       const filePath = path.join(__dirname,  reqPath);
 //        console.log("try open file - " + filePath);
@@ -138,9 +94,9 @@ function getFile(reqPath) {
 
 }
 
-/*
+
 const h2server = http2.createSecureServer(options);
-h2server.listen(3000);
+h2server.listen(3001);
 
 // The files are pushed to stream here
 function push(stream, reqPath) {
