@@ -30,40 +30,6 @@ const options = {
 const h2server = http2.createSecureServer(options);
 h2server.listen(3001);
 
-// The files are pushed to stream here
-function push(stream, reqPath) {
-    //const file = utils.getFile(path);
-    const file = getFile(reqPath);
-
-    //console.log(fs.constants.O_RDONLY);
-
-    if (!file) {
-        //TODO File 이 없을 때의 처리
-        console.log("file not found");
-        return;
-    }
-
-
-    stream.pushStream({ ':path' : reqPath }, (err, pushStream) => {
-        pushStream.respondWithFD(file.fd, file.headers);
-        pushStream.once('error', (error) => {
-            console.log('error 2 : ' + error.code);
-        })
-        pushStream.once('frameError', () => {
-            console.log('f error 2');
-        })
-
-        pushStream.once('close', () => {
-            console.log("#pushStream close fd : " + file.fd + " " + file.path);
-            fs.closeSync(file.fd)
-        });
-
-        //pushStream.end();
-    });
-
- //   stream.end();
-}
-
 h2server.on('frameError' , (err) => {
     console.log("frame error");
 } )
@@ -76,7 +42,6 @@ h2server.on('stream', (stream, headers) => {
     const reqPath = headers[':path'] === '/' ? 'index.html' : headers[':path'];
     const file = getFile(reqPath);
 
-    stream.session.state;
     if(reqPath === 'index.html') {
 //        console.log("index.html request");
         push(stream, '/app/lib/jquery.js');
