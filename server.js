@@ -15,7 +15,7 @@ const options = {
     key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
     ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
- 
+
 }
 
 const h2server = http2.createSecureServer(options);
@@ -96,7 +96,7 @@ function getFile(reqPath) {
             }
         }
     } catch(e) {
-        console.log("error. cannot read file");
+        console.log("error. cannot read file - " + filePath);
         return null;
     }
 }
