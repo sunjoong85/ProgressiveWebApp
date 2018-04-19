@@ -7,7 +7,8 @@ var urlsToCache = [
  '/app/lib/jquery.js',
  '/app/lib/lodash.js',
  '/app/lib/bootstrap.min.css',
- '/app/lib/bootstrap.min.js'
+ '/app/lib/bootstrap.min.js',
+ '/app/lib/app.css'
 ];
 //url에 대해서 하나라도 캐쉬에 실패하면 에러
 self.addEventListener('install', function(event) {

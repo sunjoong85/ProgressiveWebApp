@@ -4,13 +4,18 @@ const fs = require('fs');
 const mime = require('mime');
 const path = require('path');
 
-
 const options = {
-//    key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
-//    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
+  //Local에서 생성한 인증서
+    key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
+    cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
+
+
+ // 신뢰할 수 있는 인증서. let's encrypt를 사용했습니다.
+ /*
     key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
     ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
+ */
 }
 
 const h2server = http2.createSecureServer(options);
@@ -55,6 +60,8 @@ h2server.on('stream', (stream, headers) => {
         push(stream, '/app/lib/lodash.js');
         push(stream, '/app/lib/bootstrap.min.css');
         push(stream, '/app/lib/bootstrap.min.js');
+        push(stream, '/app/lib/app.css');
+
     } else {
         console.log("another request");
     }

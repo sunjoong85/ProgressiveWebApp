@@ -1,6 +1,6 @@
 {
   "short_name": "PWA",
-  "name": "Progressive WEb ",
+  "name": "Progressive WEB",
   "icons": [
     {
       "src": "launcher-icon-1x.png",
@@ -18,5 +18,8 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "/"
+  "start_url": "/",
+  "background_color" : "#317EFB",
+  "theme_color" : "#db5945",
+  "display" : "fullscreen"
 }

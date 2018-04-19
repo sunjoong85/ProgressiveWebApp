@@ -20,7 +20,31 @@
 </head>
 
 <body>
-  Hello World!
+  
+<div data-camellia-view="camellia.plugin.router" data-provider-name="RouterService">
+    <div data-camellia-view="App">
+        <div data-camellia-view="TopNavigationBar">
+            <a href="/home" class="menu" data-url="/home" data-camellia-bind="onclick:menuClicked">Home</a>
+
+            <a href="/a" class="menu" data-url="/a" data-camellia-bind="onclick:menuClicked">A Menu</a>
+
+            <a href="#a/sub3" data-camellia-bind="onclick:testClicked">/a/sub3 test</a> <!-- /a/sub3 요청이 들어오면 각 단계의 url token 에서 해야할 작업을 처리하도록 한다. -->
+            <a href="#a/sub3" data-camellia-bind="onclick:testNotFoundClicked">/a/notfound test</a> <!-- /a/sub3 요청이 들어오면 각 단계의 url token 에서 해야할 작업을 처리하도록 한다. -->
+        </div>
+
+        <!-- 메인 Route -->
+        <div data-camellia-view="camellia.plugin.router.route" data-path="/**"></div>
+
+        <div data-camellia-view="BottomSubRouterSample" style="margin-top:200px">
+            <div>
+                <a href="#multi1" class="menu" data-url="/multi/a" data-camellia-bind="onclick:menuClicked">Multi1</a>
+                <a href="#multi2" class="menu" data-url="/multi/b" data-camellia-bind="onclick:menuClicked">Multi2</a>
+            </div>
+
+            <div data-camellia-view="camellia.plugin.router.route" data-path="/multi/**"></div>
+        </div>
+    </div>
+</div>
 
 </body>
 
