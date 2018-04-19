@@ -1,5 +1,5 @@
 
-var CACHE_NAME = 'my-site-cache-v1.0.1';
+var CACHE_NAME = 'my-site-cache-v1.0.2';
 //Cache 타겟
 
 var urlsToCache = [
@@ -43,22 +43,14 @@ self.addEventListener('fetch', function(event) {
 });
 
 
-//TODO ServiceWorker Update 부분이 애매하다.
-self.addEventListener('activate', function(event){
- /*ㅊ
- var cacheWhitelist = ['pages-cache-v1', 'blog-posts-cache-v1'];
-
- event.waitUntil(
-     caches.keys().then(function(cacheNames) {
-         return Promise.all(
-             cacheNames.map(function(cacheName) {
-                 if (cacheWhitelist.indexOf(cacheName) === -1) {
-                     return caches.delete(cacheName);
-                 }
-             })
-         );
-     })
- );*/
-
- console.log("activate");
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            for(var i=0, len=cacheNames.length; i<len; i++) {
+                if(cacheNames[i] !== CACHE_NAME) {  //현재 캐시 버전과 다른 경우 제거
+                  caches.delete(cacheNames[i]);
+                }
+            }
+        })
+    );
 });
