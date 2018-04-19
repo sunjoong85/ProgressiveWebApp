@@ -80,9 +80,9 @@ h2server.on('stream', (stream, headers) => {
 });
 
 function getFile(reqPath) {
-    try{
-        const filePath = path.join(__dirname,  reqPath);
+    const filePath = path.join(__dirname,  reqPath);
 
+    try{
         const fd = fs.openSync(filePath, fs.constants.O_RDONLY);
         const contentType = mime.getType(filePath);
         const stat = fs.statSync(filePath);
