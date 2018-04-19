@@ -36,5 +36,5 @@
   "start_url": "/",
   "background_color" : "#317EFB",
   "theme_color" : "#317EFB",
-  "display" : "fullscreen"
+  "display" : "standalone"
 }
