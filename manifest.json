@@ -8,19 +8,14 @@
       "sizes": "48x48"
     },
     {
-      "src": "/app/image/launcher/logo-96.png",
-      "type": "/app/image/png",
-      "sizes": "96x96"
-    },
-    {
-      "src": "/app/image/launcher/logo-196.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
       "src": "/app/image/launcher/logo-72.png",
       "type": "/app/image/png",
       "sizes": "72x72"
+    },
+    {
+      "src": "/app/image/launcher/logo-96.png",
+      "type": "/app/image/png",
+      "sizes": "96x96"
     },
     {
       "src": "/app/image/launcher/logo-144.png",
@@ -31,6 +26,11 @@
       "src": "/app/image/launcher/logo-168.png",
       "type": "image/png",
       "sizes": "168x168"
+    },
+    {
+      "src": "/app/image/launcher/logo-196.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ],
   "start_url": "/",
