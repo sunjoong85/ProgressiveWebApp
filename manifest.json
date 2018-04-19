@@ -3,19 +3,34 @@
   "name": "Progressive WEB",
   "icons": [
     {
-      "src": "/app/image/launcher/logo-1x.png",
+      "src": "/app/image/launcher/logo-48.png",
       "type": "/app/image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/app/image/launcher/logo-2x.png",
+      "src": "/app/image/launcher/logo-96.png",
       "type": "/app/image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/app/image/launcher/logo-4x.png",
+      "src": "/app/image/launcher/logo-196.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "/app/image/launcher/logo-72.png",
+      "type": "/app/image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/app/image/launcher/logo-144.png",
+      "type": "/app/image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/app/image/launcher/logo-168.png",
+      "type": "image/png",
+      "sizes": "168x168"
     }
   ],
   "start_url": "/",
