@@ -21,32 +21,46 @@
 </head>
 
 <body>
+  <div class="masthead">
+    <h1 class="masthead-title">
+      <a href="/">Progressive Web App Demo</a>
+    </h1>
+    <p class="masthead-lead">
+      Inspired and designed with <a href="http://getbootstrap.com">Bootstrap</a>
+    </p>
 
-<div data-camellia-view="camellia.plugin.router" data-provider-name="RouterService">
-    <div data-camellia-view="App">
-        <div data-camellia-view="TopNavigationBar">
-            <a href="/home" class="menu" data-url="/home" data-camellia-bind="onclick:menuClicked">Home</a>
+    <hr class="masthead-hr">
 
-            <a href="/a" class="menu" data-url="/a" data-camellia-bind="onclick:menuClicked">A Menu</a>
+    <ul class="masthead-nav">
+      <li class="nav-item">
+        <a class="nav-link nav-link-active" href="/">Home</a>
+      </li>
 
-            <a href="#a/sub3" data-camellia-bind="onclick:testClicked">/a/sub3 test</a> <!-- /a/sub3 요청이 들어오면 각 단계의 url token 에서 해야할 작업을 처리하도록 한다. -->
-            <a href="#a/sub3" data-camellia-bind="onclick:testNotFoundClicked">/a/notfound test</a> <!-- /a/sub3 요청이 들어오면 각 단계의 url token 에서 해야할 작업을 처리하도록 한다. -->
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
 
-        <!-- 메인 Route -->
-        <div data-camellia-view="camellia.plugin.router.route" data-path="/**"></div>
+    </ul>
 
-        <div data-camellia-view="BottomSubRouterSample" style="margin-top:200px">
-            <div>
-                <a href="#multi1" class="menu" data-url="/multi/a" data-camellia-bind="onclick:menuClicked">Multi1</a>
-                <a href="#multi2" class="menu" data-url="/multi/b" data-camellia-bind="onclick:menuClicked">Multi2</a>
-            </div>
+    <hr class="masthead-hr">
+  </div>
 
-            <div data-camellia-view="camellia.plugin.router.route" data-path="/multi/**"></div>
-        </div>
+  <div class="listing">
+    <div class="page">
+      <h1 class="page-title">
+        About
+      </h1>
+      <p>Progressive Web Demo is a showcase of web application implementing Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
+
+      <h2 id="submissions">Technology</h2>
+      <ul>
+        <li>HTTP/2 & HTTPS</li>
+        <li>HTTP/2 ServerPush</li>
+        <li>Service Worker</li>
+        <li>Various PWA Concepts</li>
+      </ul>
     </div>
-</div>
-
+  </div>
 </body>
 
 
@@ -57,16 +71,16 @@
 <script>
 
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-              //root url 에 대해서만 처리 하겠다는 의미
-        navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
-                  // Registration was successful
-              console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-                  // registration failed :(
-              console.log('ServiceWorker registration failed: ', err);
-        });
+  window.addEventListener('load', function() {
+    //root url 에 대해서만 처리 하겠다는 의미
+    navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
     });
+  });
 }
 </script>
 
