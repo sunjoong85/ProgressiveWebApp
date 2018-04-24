@@ -15,13 +15,10 @@ const options = {
     key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
     ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
-
-    allowHTTP1 : true  //if client dose not support
-}
+    // allowHTTP1 : true
+  }
 
 const h1server = http.createServer((req, res) => {
-  console.log("###########");
-  console.log(req.headers);
 //  console.log(`https://${req.headers.host}`);
   // res.writeHead(301,{Location: `https://${req.headers.host}${req.url}`});
   res.writeHead(301,{Location: 'https://flyingmom.kr'});
