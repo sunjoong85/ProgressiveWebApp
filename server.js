@@ -1,4 +1,5 @@
 
+const http = require('http');
 const http2 = require('http2');
 const fs = require('fs');
 const mime = require('mime');
@@ -11,15 +12,36 @@ const options = {
 */
 
  // 신뢰할 수 있는 인증서. let's encrypt를 사용했습니다.
-
     key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
     ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
 
+    allowHTTP1 : true  //if client dose not support
 }
 
-const h2server = http2.createSecureServer(options);
-h2server.listen(3001);
+const h1server = http.createServer((req, res) => {
+  console.log("###########");
+  console.log(req.headers);
+//  console.log(`https://${req.headers.host}`);
+  // res.writeHead(301,{Location: `https://${req.headers.host}${req.url}`});
+  res.writeHead(301,{Location: 'https://flyingmom.kr'});
+  res.end();
+}).listen(3000);  //80
+
+
+const h2server = http2.createSecureServer(options, function(req , res){
+  // detects if it is a HTTPS request or HTTP/2
+  const { socket: { alpnProtocol } } = req.httpVersion === '2.0' ? req.stream.session : req;
+
+  console.log('here' + req.httpVersion);
+  /*
+  res.writeHead(200, { 'content-type': 'application/json' });
+  res.end(JSON.stringify({
+    alpnProtocol,
+    httpVersion: req.httpVersion
+  }));*/
+
+}).listen(3001);  //443
 
 // file push
 function push(stream, reqPath) {

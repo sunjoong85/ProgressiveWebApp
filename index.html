@@ -94,4 +94,34 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<script>
+   (function() {
+     var startUrlEl = document.querySelector("meta[name=msapplication-starturl]");
+     if(!!startUrlEl === true && navigator.standalone === true) {
+       var lastUrl = localStorage["navigate"];
+       history.pushState({launched: (!!lastUrl == false && history.length === 1)}, undefined, lastUrl || startUrlEl.content);
+       localStorage.removeItem("navigate");
+
+       // Intercept all anchor clicks and keep fullscreen if in origin
+       document.addEventListener("click", function(e) {
+         var target = e.target;
+         if(target.tagName === 'A') {
+
+           var href = target.getAttribute("href");
+           var linkedUrl = new URL(target.href);
+           if(linkedUrl.origin === location.origin) {
+             e.preventDefault();
+             location.href = href;
+           }
+           else {
+             // When we are navigating away store the state so we can resume.
+             localStorage["navigate"] = location.href;
+           }
+         }
+       });
+     }
+   })();
+
+</script>
+
 </html>
