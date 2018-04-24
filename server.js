@@ -15,7 +15,7 @@ const options = {
     key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
     ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
-
+    allowHTTP1 : true
 }
 
 const h2server = http2.createSecureServer(options);
