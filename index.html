@@ -47,11 +47,20 @@
       <li class="nav-item">
         <a class="nav-link nav-link-active" href="/">Home</a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="/">Camera</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">Geolocation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">Push Notification</a>
+      </li>
+<!--
       <li class="nav-item">
         <a class="nav-link" href="/about/">About</a>
       </li>
-
+-->
     </ul>
 
     <hr class="masthead-hr">
@@ -60,7 +69,7 @@
   <div class="listing">
     <div class="page">
       <h1 class="page-title">
-        About
+        Home
       </h1>
       <p>Progressive Web App Demo is a showcase of web application implementing Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
 
@@ -69,10 +78,36 @@
         <li>HTTP/2 & HTTPS</li>
         <li>HTTP/2 ServerPush</li>
         <li>Service Worker</li>
-        <li>Various PWA Concepts</li>
+        <li>App Shell Model</li>
+        <li>Device Control</li>
       </ul>
     </div>
+
+    <div class="page">
+        <h1 class="page-title">Home</h1>
+        <p>
+            This example shows how native camera device is controlled by web app.
+        </p>
+        <h1>Video</h1>
+        <p>
+            <video id="video" width=300 height=300 controls autoplay></video>
+        </p>
+
+        <h1>Image Capture</h1>
+        <p>
+            Also an image can be captured.
+            <div>
+              <button id="btn">Screenshot</button>
+            </div>
+            <div>
+              <img id="img" width="250" height="250"></img>
+            </div>
+        </p>
+
+    </div>
   </div>
+
+
 </body>
 
 <script type="javascript" src="/app/lib/jquery.js"></script>
@@ -94,6 +129,41 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<script>
+//camera test
+var video = document.getElementById('video');
+
+navigator.mediaDevices.getUserMedia({video: true})
+  .then(function(stream) {
+      video.srcObject = stream;
+  })
+  .catch(function(error) {
+    console.error('getUserMedia() error:', error)
+  });
+
+document.getElementById('btn').addEventListener('click', function() {
+  //capture
+  navigator.mediaDevices.getUserMedia({video: true})
+    .then(gotMedia)
+    .catch(error => console.error('getUserMedia() error:', error));
+
+  function gotMedia(mediaStream) {
+    const mediaStreamTrack = mediaStream.getVideoTracks()[0];
+    const imageCapture = new ImageCapture(mediaStreamTrack);
+
+    //img를 이용한 방식 high resolution
+    const img = document.getElementById('img');
+    imageCapture.takePhoto()
+      .then(blob => {
+        img.src = URL.createObjectURL(blob);
+        img.onload = () => { URL.revokeObjectURL(this.src); }
+      }).catch(error => console.error('takePhoto() error:', error));
+    }
+});
+
+
+</script>
+<!--
 <script>
    (function() {
      var startUrlEl = document.querySelector("meta[name=msapplication-starturl]");
@@ -122,6 +192,6 @@ if ('serviceWorker' in navigator) {
      }
    })();
 
-</script>
+</script>-->
 
 </html>

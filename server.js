@@ -21,7 +21,7 @@ const options = {
 const h1server = http.createServer((req, res) => {
 //  console.log(`https://${req.headers.host}`);
   // res.writeHead(301,{Location: `https://${req.headers.host}${req.url}`});
-  res.writeHead(301,{Location: 'https://flyingmom.kr'});
+  res.writeHead(301,{Location: 'https://flyingmom.kr:3001'});
   res.end();
 }).listen(3000);  //80
 
