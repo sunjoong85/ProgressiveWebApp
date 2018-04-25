@@ -117,13 +117,10 @@
 
 <script>
 
-$(function() {
-    var app = new Vue({
-    el: '#app',
-    data: {
-      message: 'Hello Vue!'
-    }
-  });
+var app = new Vue({
+  el: '#app',
+  data: {
+  }
 });
 
 if ('serviceWorker' in navigator) {
@@ -160,7 +157,7 @@ if(navigator.geolocation) {
    }
 
    const geoLocation = function(position) {
-     const location = `Your location is ${position.coords.latitude} latitude and ${position.coords.longitude} longitude`;
+     const location = `Your location is <strong>${position.coords.latitude}</strong> latitude and <strong>${position.coords.longitude}</strong> longitude`;
      document.getElementById('geolocation').innerHTML = location;
    }
 
