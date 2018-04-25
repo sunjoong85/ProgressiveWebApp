@@ -33,98 +33,93 @@
 </head>
 
 <body>
-  <div id="app">
-    <div class="masthead">
-      <h1 class="masthead-title">
-        <a href="/">Progressive Web App Demo</a>
-      </h1>
-      <p class="masthead-lead">
-        Inspired and designed with <a href="http://getbootstrap.com">Bootstrap</a>
-      </p>
 
-      <hr class="masthead-hr">
-
-      <ul class="masthead-nav">
-        <li class="nav-item">
-          <a class="nav-link nav-link-active" data-path="home" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-path="camera" href="/">Camera</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-path="geo" href="/">Geolocation</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-path="push" href="/">Push Notification</a>
-        </li>
-        <!--
-        <li class="nav-item">
-        <a class="nav-link" href="/about/">About</a>
-      </li>
-    -->
-  </ul>
-
-  <hr class="masthead-hr">
-</div>
-
-<div class="listing">
-  <div class="page" id="home">
-    <h1 class="page-title">
-      Home
+  <div class="masthead">
+    <h1 class="masthead-title">
+      <a href="/">Progressive Web App Demo</a>
     </h1>
-    <p>Progressive Web App Demo is a showcase of implementations for Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
+    <p class="masthead-lead">
+      Inspired and designed with <a href="http://getbootstrap.com">Bootstrap</a>
+    </p>
 
-      <h2 id="submissions">Technology</h2>
-      <ul>
-        <li>HTTP/2 & HTTPS</li>
-        <li>HTTP/2 ServerPush</li>
-        <li>Service Worker</li>
-        <li>App Shell Model</li>
-        <li>Device Control</li>
-      </ul>
-    </div>
+    <hr class="masthead-hr">
 
-    <div class="page" id="camera" style="display:none">
-      <h1 class="page-title">Camera</h1>
-      <p>
-        This example shows how native camera device is controlled by web app.
-      </p>
-      <p>
-        Click <button id="camera_btn">Camera</button>
-        <video id="video" width=300 height=300></video>
-      </p>
-    </div>
+    <ul class="masthead-nav">
+      <li class="nav-item">
+        <a class="nav-link nav-link-active" data-path="home" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-path="camera" href="/">Camera</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-path="geo" href="/">Geolocation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-path="push" href="/">Push Notification</a>
+      </li>
+    </ul>
+
+    <hr class="masthead-hr">
   </div>
 
-  <div class="page" id="geolocation" style="display:none">
-    <h1 class="page-title">Geolocation</h1>
-    <p>
-      This example show user's location with geolocation API.
-    </P>
+  <div class="listing">
+    <div class="page" id="home">
+      <h1 class="page-title">
+        Home
+      </h1>
+      <p>Progressive Web App Demo is a showcase of implementations for Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
 
-    <p id="geotxt"></p>
-  </div>
-</div>
-</body>
+        <h2 id="submissions">Technology</h2>
+        <ul>
+          <li>HTTP/2 & HTTPS</li>
+          <li>HTTP/2 ServerPush</li>
+          <li>Service Worker</li>
+          <li>App Shell Model</li>
+          <li>Device Control</li>
+        </ul>
+      </div>
 
-<script src="/app/lib/jquery.js"></script>
-<script src="/app/lib/lodash.js"></script>
-<script src="/app/lib/bootstrap.min.js"></script>
+      <div class="page" id="camera" style="display:none">
+        <h1 class="page-title">Camera</h1>
+        <p>
+          This example shows how native camera device is controlled by web app.
+          Click <button id="camera_btn">Run Camera</button>
+        </p>
+        <p>
+          <video id="video" width=300 height=300></video>
+        </p>
+      </div>
+      <div class="page" id="geolocation" style="display:none">
+        <h1 class="page-title">Geolocation</h1>
+        <p>
+          This example show user's location with geolocation API.<br>
+          Click <button id="geo_btn">Calculate Geolocation</button>
+        </P>
 
-<script>
-//ServiceWorker Integration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    //root url 에 대해서만 처리 하겠다는 의미
-    navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }).catch(function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
+        <p id="geotxt"></p>
+      </div>
+    </div>
+
+  </body>
+
+  <script src="/app/lib/jquery.js"></script>
+  <script src="/app/lib/lodash.js"></script>
+  <script src="/app/lib/bootstrap.min.js"></script>
+
+  <script>
+  //ServiceWorker Integration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      //root url 에 대해서만 처리 하겠다는 의미
+      navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
     });
-  });
-}
+  }
 </script>
 
 <script>
@@ -138,17 +133,17 @@ $(function() {
 
     switch( $(e.target).data('path') ) {
       case 'home' :
-        $('#home').show();
-        break;
+      $('#home').show();
+      break;
       case 'camera' :
-        $('#camera').show();
-        break;
+      $('#camera').show();
+      break;
       case 'geo' :
-        $('#geolocation').show();
-        break;
+      $('#geolocation').show();
+      break;
       case 'push' :
-        $('#push').show();
-        break;
+      $('#push').show();
+      break;
     }
 
     e.preventDefault();
@@ -172,18 +167,20 @@ document.getElementById('camera_btn').addEventListener('click', function() {
 })
 
 //Geolocation
-if(navigator.geolocation) {
-  const geoError = function() {
-    console.log("fail to load geolocation");
-  }
+document.getElementById('geo_btn').addEventListener('click', function() {
+  if(navigator.geolocation) {
+    const geoError = function() {
+      console.log("fail to load geolocation");
+    }
 
-  const geoLocation = function(position) {
-    const location = `Your location is <strong>${position.coords.latitude}</strong> latitude and <strong>${position.coords.longitude}</strong> longitude`;
-    document.getElementById('geotxt').innerHTML = location;
-  }
+    const geoLocation = function(position) {
+      const location = `Your location is <strong>${position.coords.latitude}</strong> latitude and <strong>${position.coords.longitude}</strong> longitude`;
+      document.getElementById('geotxt').innerHTML = location;
+    }
 
-  navigator.geolocation.getCurrentPosition(geoLocation, geoError, {enableHighAccuracy : true});
-}
+    navigator.geolocation.getCurrentPosition(geoLocation, geoError, {enableHighAccuracy : true});
+  }
+});
 </script>
 
 
