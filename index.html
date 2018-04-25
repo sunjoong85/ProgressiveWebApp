@@ -86,7 +86,7 @@
           Click <button id="camera_btn">Run Camera</button>
         </p>
         <p>
-          <video id="video" width=300 height=300></video>
+          <video id="video" width=300 height=300 autoplay></video>
         </p>
       </div>
       <div class="page" id="geolocation" style="display:none">
@@ -170,7 +170,7 @@ document.getElementById('camera_btn').addEventListener('click', function() {
 document.getElementById('geo_btn').addEventListener('click', function() {
   if(navigator.geolocation) {
     const geoError = function() {
-      console.log("fail to load geolocation");
+      document.getElementById('geotxt').innerHTML = "fail to load geolocation"
     }
 
     const geoLocation = function(position) {
