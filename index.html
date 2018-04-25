@@ -154,15 +154,19 @@ $(function() {
 <script>
 //Camera
 let video = document.getElementById('video');
+let isRun =false;
 document.getElementById('camera_btn').addEventListener('click', function() {
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
-    navigator.mediaDevices.getUserMedia({video: true})
-    .then(function(stream) {
-      video.srcObject = stream;
-    })
-    .catch(function(error) {
-      console.error('getUserMedia() error:', error)
-    });
+    if(!isRun) {
+      navigator.mediaDevices.getUserMedia({video: true})
+      .then(function(stream) {
+        video.srcObject = stream;
+      })
+      .catch(function(error) {
+        console.error('getUserMedia() error:', error)
+      });
+      isRun = true;
+    }
   }
 })
 
