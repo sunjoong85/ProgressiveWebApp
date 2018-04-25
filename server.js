@@ -6,12 +6,12 @@ const mime = require('mime');
 const path = require('path');
 
 const options = {
-  //Local에서 생성한 인증서
+  //Local Test SSL
   /*  key : fs.readFileSync(path.join(__dirname, '/server/server.key')),
     cert: fs.readFileSync(path.join(__dirname, '/server/server.crt')),
 */
 
- // 신뢰할 수 있는 인증서. let's encrypt를 사용했습니다.
+ // SSL by let's encrypt
     key : fs.readFileSync(path.join(__dirname, '/certs/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, '/certs/fullchain.pem')),
     ca: fs.readFileSync(path.join(__dirname, '/certs/chain.pem')),
@@ -19,32 +19,23 @@ const options = {
   }
 
 const h1server = http.createServer((req, res) => {
-//  console.log(`https://${req.headers.host}`);
-  // res.writeHead(301,{Location: `https://${req.headers.host}${req.url}`});
-  res.writeHead(301,{Location: 'https://flyingmom.kr:3001'});
+  //HTTP -> HTTPs forwarding
+  res.writeHead(301,{Location: 'https://flyingmom.kr'});
   res.end();
-}).listen(3000);  //80
+}).listen(3000);
 
 
 const h2server = http2.createSecureServer(options, function(req , res){
-  // detects if it is a HTTPS request or HTTP/2
+  // detects if it is a HTTPS request or HTTP/2. If HTTP/2 is not supported to the requested client, then
   const { socket: { alpnProtocol } } = req.httpVersion === '2.0' ? req.stream.session : req;
-
   console.log('here' + req.httpVersion);
-  /*
-  res.writeHead(200, { 'content-type': 'application/json' });
-  res.end(JSON.stringify({
-    alpnProtocol,
-    httpVersion: req.httpVersion
-  }));*/
 
-}).listen(3001);  //443
+}).listen(3001);
 
 // file push
 function push(stream, reqPath) {
     const file = getFile(reqPath);
     if (!file) {
-        //TODO File 이 없을 때의 처리
         console.log("file not found");
         return;
     }
