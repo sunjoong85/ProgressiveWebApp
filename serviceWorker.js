@@ -1,5 +1,5 @@
 
-var CACHE_NAME = 'my-site-cache-v1.0.5';
+var CACHE_NAME = 'my-site-cache-v1.0.6';
 //Cache 타겟
 
 var urlsToCache = [
