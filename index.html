@@ -83,7 +83,7 @@
         <h1 class="page-title">Camera</h1>
         <p>
           This example shows how native camera device is controlled by web app.
-          Click <button id="camera_btn">Run Camera</button>
+          <button id="camera_btn">Run Camera</button> <button id="camera_stop">Stop Camera</button>
         </p>
         <p>
           <video id="video" width=300 height=300 autoplay></video>
@@ -154,12 +154,14 @@ $(function() {
 <script>
 //Camera
 let video = document.getElementById('video');
-let isRun =false;
+let localStream = null;
+let isRun = false;
 document.getElementById('camera_btn').addEventListener('click', function() {
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
     if(!isRun) {
       navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
+        localStream = stream;
         video.srcObject = stream;
       })
       .catch(function(error) {
@@ -168,7 +170,12 @@ document.getElementById('camera_btn').addEventListener('click', function() {
       isRun = true;
     }
   }
-})
+});
+
+document.getElementById('camera_stop').addEventListener('click', function() {
+  localStream.stop();
+  isRun = false;
+});
 
 //Geolocation
 document.getElementById('geo_btn').addEventListener('click', function() {
