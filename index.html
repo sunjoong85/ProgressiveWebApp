@@ -155,7 +155,7 @@ $(function() {
 //Camera
 let video = document.getElementById('video');
 document.getElementById('camera_btn').addEventListener('click', function() {
-  if(navigator.medaDevices && navigator.mediaDevices.getUserMedia){
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
     navigator.mediaDevices.getUserMedia({video: true})
     .then(function(stream) {
       video.srcObject = stream;
