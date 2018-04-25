@@ -20,7 +20,7 @@
   </noscript>
 
 
-<!-- IOS Meta -->
+  <!-- IOS Meta -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="PWA">
 
@@ -32,46 +32,47 @@
   <meta name="msapplication-starturl" content="/" />
 </head>
 
-<body id="app">
-  <div class="masthead">
-    <h1 class="masthead-title">
-      <a href="/">Progressive Web App Demo</a>
-    </h1>
-    <p class="masthead-lead">
-      Inspired and designed with <a href="http://getbootstrap.com">Bootstrap</a>
-    </p>
+<body>
+  <div id="app">
+    <div class="masthead">
+      <h1 class="masthead-title">
+        <a href="/">Progressive Web App Demo</a>
+      </h1>
+      <p class="masthead-lead">
+        Inspired and designed with <a href="http://getbootstrap.com">Bootstrap</a>
+      </p>
 
-    <hr class="masthead-hr">
+      <hr class="masthead-hr">
 
-    <ul class="masthead-nav">
-      <li class="nav-item">
-        <a class="nav-link nav-link-active" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/">Camera</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/">Geolocation</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/">Push Notification</a>
-      </li>
-<!--
-      <li class="nav-item">
+      <ul class="masthead-nav">
+        <li class="nav-item">
+          <a class="nav-link nav-link-active" data-path="home" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-path="camera" href="/">Camera</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-path="geo" href="/">Geolocation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-path="push" href="/">Push Notification</a>
+        </li>
+        <!--
+        <li class="nav-item">
         <a class="nav-link" href="/about/">About</a>
       </li>
--->
-    </ul>
+    -->
+  </ul>
 
-    <hr class="masthead-hr">
-  </div>
+  <hr class="masthead-hr">
+</div>
 
-  <div class="listing">
-    <div class="page">
-      <h1 class="page-title">
-        Home
-      </h1>
-      <p>Progressive Web App Demo is a showcase of implementations for Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
+<div class="listing">
+  <div class="page" id="home">
+    <h1 class="page-title">
+      Home
+    </h1>
+    <p>Progressive Web App Demo is a showcase of implementations for Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
 
       <h2 id="submissions">Technology</h2>
       <ul>
@@ -83,46 +84,35 @@
       </ul>
     </div>
 
-
-    <div class="page">
-        <h1 class="page-title">Camera</h1>
-        <p>
-            This example shows how native camera device is controlled by web app.
-        </p>
-        <h1>Video</h1>
-        <p>
-            <video id="video" width=300 height=300 autoplay></video>
-        </p>
+    <div class="page" id="camera" style="display:none">
+      <h1 class="page-title">Camera</h1>
+      <p>
+        This example shows how native camera device is controlled by web app.
+      </p>
+      <p>
+        Click <button id="camera_btn">Camera</button>
+        <video id="video" width=300 height=300></video>
+      </p>
     </div>
   </div>
 
-  <div class="page">
+  <div class="page" id="geolocation" style="display:none">
     <h1 class="page-title">Geolocation</h1>
     <p>
-        This example show user's location with geolocation API.
+      This example show user's location with geolocation API.
     </P>
 
-    <p id="geolocation">
-
-    </p>
+    <p id="geotxt"></p>
   </div>
-
+</div>
 </body>
 
-<script type="javascript" src="/app/lib/jquery.js"></script>
-<script type="javascript" src="/app/lib/lodash.js"></script>
-<script type="javascript" src="/app/lib/bootstrap.min.js"></script>
-<!-- development version, includes helpful console warnings -->
-<script type="javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="/app/lib/jquery.js"></script>
+<script src="/app/lib/lodash.js"></script>
+<script src="/app/lib/bootstrap.min.js"></script>
 
 <script>
-/*
-var app = new Vue({
-  el: '#app',
-  data: {
-  }
-});
-*/
+//ServiceWorker Integration
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     //root url 에 대해서만 처리 하겠다는 의미
@@ -138,84 +128,63 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script>
-//camera test
-var video = document.getElementById('video');
+//Simple Menu Navigation
+$(function() {
+  function hideAll() {
+    $('div.page').hide();
+  }
+  $('a.nav-link').on('click', function(e) {
+    hideAll();
 
-if(navigator.medaDevices && navigator.mediaDevices.getUserMedia){
-  navigator.mediaDevices.getUserMedia({video: true})
+    switch( $(e.target).data('path') ) {
+      case 'home' :
+        $('#home').show();
+        break;
+      case 'camera' :
+        $('#camera').show();
+        break;
+      case 'geo' :
+        $('#geolocation').show();
+        break;
+      case 'push' :
+        $('#push').show();
+        break;
+    }
+
+    e.preventDefault();
+  });
+});
+</script>
+
+<script>
+//Camera
+let video = document.getElementById('video');
+document.getElementById('camera_btn').addEventListener('click', function() {
+  if(navigator.medaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({video: true})
     .then(function(stream) {
-        video.srcObject = stream;
+      video.srcObject = stream;
     })
     .catch(function(error) {
       console.error('getUserMedia() error:', error)
     });
-}
+  }
+})
 
+//Geolocation
 if(navigator.geolocation) {
-   const geoError = function() {
-     console.log("fail to load geolocation");
-   }
+  const geoError = function() {
+    console.log("fail to load geolocation");
+  }
 
-   const geoLocation = function(position) {
-     const location = `Your location is <strong>${position.coords.latitude}</strong> latitude and <strong>${position.coords.longitude}</strong> longitude`;
-     document.getElementById('geolocation').innerHTML = location;
-   }
+  const geoLocation = function(position) {
+    const location = `Your location is <strong>${position.coords.latitude}</strong> latitude and <strong>${position.coords.longitude}</strong> longitude`;
+    document.getElementById('geotxt').innerHTML = location;
+  }
 
-   navigator.geolocation.getCurrentPosition(geoLocation, geoError, {enableHighAccuracy : true});
- }
-
-/*
-document.getElementById('btn').addEventListener('click', function() {
-  //capture
-  navigator.mediaDevices.getUserMedia({video: true})
-    .then(gotMedia)
-    .catch(error => console.error('getUserMedia() error:', error));
-
-  function gotMedia(mediaStream) {
-    const mediaStreamTrack = mediaStream.getVideoTracks()[0];
-    const imageCapture = new ImageCapture(mediaStreamTrack);
-
-    //img를 이용한 방식 high resolution
-    const img = document.getElementById('img');
-    imageCapture.takePhoto()
-      .then(blob => {
-        img.src = URL.createObjectURL(blob);
-        img.onload = () => { URL.revokeObjectURL(this.src); }
-      }).catch(error => console.error('takePhoto() error:', error));
-    }
-});
-*/
-
+  navigator.geolocation.getCurrentPosition(geoLocation, geoError, {enableHighAccuracy : true});
+}
 </script>
-<!--
-<script>
-   (function() {
-     var startUrlEl = document.querySelector("meta[name=msapplication-starturl]");
-     if(!!startUrlEl === true && navigator.standalone === true) {
-       var lastUrl = localStorage["navigate"];
-       history.pushState({launched: (!!lastUrl == false && history.length === 1)}, undefined, lastUrl || startUrlEl.content);
-       localStorage.removeItem("navigate");
 
-       // Intercept all anchor clicks and keep fullscreen if in origin
-       document.addEventListener("click", function(e) {
-         var target = e.target;
-         if(target.tagName === 'A') {
-
-           var href = target.getAttribute("href");
-           var linkedUrl = new URL(target.href);
-           if(linkedUrl.origin === location.origin) {
-             e.preventDefault();
-             location.href = href;
-           }
-           else {
-             // When we are navigating away store the state so we can resume.
-             localStorage["navigate"] = location.href;
-           }
-         }
-       });
-     }
-   })();
-
-</script>-->
 
 </html>
