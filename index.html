@@ -32,7 +32,7 @@
   <meta name="msapplication-starturl" content="/" />
 </head>
 
-<body>
+<body id="app">
   <div class="masthead">
     <h1 class="masthead-title">
       <a href="/">Progressive Web App Demo</a>
@@ -83,8 +83,9 @@
       </ul>
     </div>
 
+
     <div class="page">
-        <h1 class="page-title">Home</h1>
+        <h1 class="page-title">Camera</h1>
         <p>
             This example shows how native camera device is controlled by web app.
         </p>
@@ -95,14 +96,36 @@
     </div>
   </div>
 
+  <div class="page">
+    <h1 class="page-title">Geolocation</h1>
+    <p>
+        This example show user's location with geolocation API.
+    </P>
+
+    <p id="geolocation">
+
+    </p>
+  </div>
 
 </body>
 
 <script type="javascript" src="/app/lib/jquery.js"></script>
 <script type="javascript" src="/app/lib/lodash.js"></script>
 <script type="javascript" src="/app/lib/bootstrap.min.js"></script>
+<!-- development version, includes helpful console warnings -->
+<script type="javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script>
+
+$(function() {
+    var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!'
+    }
+  });
+});
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     //root url 에 대해서만 처리 하겠다는 의미
@@ -121,13 +144,28 @@ if ('serviceWorker' in navigator) {
 //camera test
 var video = document.getElementById('video');
 
-navigator.mediaDevices.getUserMedia({video: true})
-  .then(function(stream) {
-      video.srcObject = stream;
-  })
-  .catch(function(error) {
-    console.error('getUserMedia() error:', error)
-  });
+if(navigator.medaDevices && navigator.mediaDevices.getUserMedia){
+  navigator.mediaDevices.getUserMedia({video: true})
+    .then(function(stream) {
+        video.srcObject = stream;
+    })
+    .catch(function(error) {
+      console.error('getUserMedia() error:', error)
+    });
+}
+
+if(navigator.geolocation) {
+   const geoError = function() {
+     console.log("fail to load geolocation");
+   }
+
+   const geoLocation = function(position) {
+     const location = `Your location is ${position.coords.latitude} latitude and ${position.coords.longitude} longitude`;
+     document.getElementById('geolocation').innerHTML = location;
+   }
+
+   navigator.geolocation.getCurrentPosition(geoLocation, geoError, {enableHighAccuracy : true});
+ }
 
 /*
 document.getElementById('btn').addEventListener('click', function() {
