@@ -89,11 +89,21 @@
           <video id="video" width=300 height=300 autoplay></video>
         </p>
       </div>
+
       <div class="page" id="geolocation" style="display:none">
         <h1 class="page-title">Geolocation</h1>
         <p>
           This example show user's location with geolocation API.<br>
           Click <button id="geo_btn">Calculate Geolocation</button>
+        </P>
+
+        <p id="geotxt"></p>
+      </div>
+
+      <div class="page" id="push" style="display:none">
+        <h1 class="page-title">Push Notification</h1>
+        <p>
+          Working Now
         </P>
 
         <p id="geotxt"></p>
@@ -107,13 +117,24 @@
   <script src="/app/lib/bootstrap.min.js"></script>
 
   <script>
+  //push notification
+  function subscribe(serviceWorkerReg) {
+    serviceWorkerReg.pushManager.subscribe({userVisibleOnly: true})
+      .then(subscription => console.log(subscription));
+  }
+
   //ServiceWorker Integration
   if ('serviceWorker' in navigator) {
+
+
     window.addEventListener('load', function() {
       //root url 에 대해서만 처리 하겠다는 의미
       navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
         // Registration was successful
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
+
+        //for push notification
+        subscribe(registration);
       }).catch(function(err) {
         // registration failed :(
         console.log('ServiceWorker registration failed: ', err);
@@ -167,6 +188,7 @@ document.getElementById('camera_btn').addEventListener('click', function() {
         console.error('getUserMedia() error:', error)
       });
       isRun = true;
+      video.play();
     }
   }
 });
