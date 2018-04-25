@@ -173,7 +173,14 @@ document.getElementById('camera_btn').addEventListener('click', function() {
 });
 
 document.getElementById('camera_stop').addEventListener('click', function() {
-  localStream.stop();
+  let stream = video.srcObject;
+  let tracks = stream.getTracks();
+
+  tracks.forEach(function(track) {
+     track.stop();
+  });
+  
+  video.srcObject = null;
   isRun = false;
 });
 
