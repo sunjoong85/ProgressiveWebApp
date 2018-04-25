@@ -71,7 +71,7 @@
       <h1 class="page-title">
         Home
       </h1>
-      <p>Progressive Web App Demo is a showcase of web application implementing Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
+      <p>Progressive Web App Demo is a showcase of implementations for Progressive Web App concept. Responsive design is applied using <a href="http://getbootstrap.com">Bootstrap</a>.
 
       <h2 id="submissions">Technology</h2>
       <ul>
@@ -90,20 +90,8 @@
         </p>
         <h1>Video</h1>
         <p>
-            <video id="video" width=300 height=300 controls autoplay></video>
+            <video id="video" width=300 height=300 autoplay></video>
         </p>
-
-        <h1>Image Capture</h1>
-        <p>
-            Also an image can be captured.
-            <div>
-              <button id="btn">Screenshot</button>
-            </div>
-            <div>
-              <img id="img" width="250" height="250"></img>
-            </div>
-        </p>
-
     </div>
   </div>
 
@@ -141,6 +129,7 @@ navigator.mediaDevices.getUserMedia({video: true})
     console.error('getUserMedia() error:', error)
   });
 
+/*
 document.getElementById('btn').addEventListener('click', function() {
   //capture
   navigator.mediaDevices.getUserMedia({video: true})
@@ -160,7 +149,7 @@ document.getElementById('btn').addEventListener('click', function() {
       }).catch(error => console.error('takePhoto() error:', error));
     }
 });
-
+*/
 
 </script>
 <!--
