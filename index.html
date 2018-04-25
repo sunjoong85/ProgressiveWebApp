@@ -154,14 +154,12 @@ $(function() {
 <script>
 //Camera
 let video = document.getElementById('video');
-let localStream = null;
 let isRun = false;
 document.getElementById('camera_btn').addEventListener('click', function() {
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
     if(!isRun) {
       navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
-        localStream = stream;
         video.srcObject = stream;
       })
       .catch(function(error) {
@@ -176,10 +174,11 @@ document.getElementById('camera_stop').addEventListener('click', function() {
   let stream = video.srcObject;
   let tracks = stream.getTracks();
 
+  video.pause();
   tracks.forEach(function(track) {
      track.stop();
   });
-  
+
   video.srcObject = null;
   isRun = false;
 });
