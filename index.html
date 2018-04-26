@@ -181,7 +181,6 @@ document.getElementById('camera_btn').addEventListener('click', function() {
     if(!isRun) {
       navigator.mediaDevices.getUserMedia({video: true})
       .then(function(stream) {
-        console.log("still stream is working..", stream)
         video.srcObject = stream;
       })
       .catch(function(error) {
